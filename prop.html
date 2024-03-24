@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Properties - Rental Property Management</title>
+<style>
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header Styles */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 0;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.nav-menu li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Footer Styles */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* Add styles for the search bar */
+.search-form {
+  margin-left: auto;
+}
+
+.search-form input[type="text"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 5px;
+  width: 200px; /* Adjust width as needed */
+}
+
+.search-form button {
+  padding: 8px 15px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-content">
+    <div class="logo">Your Logo</div>
+    <nav>
+      <ul class="nav-menu">
+        <li><a href="index.html" target="_blank">Home</a></li>
+        <li><a href="about.html" target="_blank">About</a></li>
+        <li><a href="service.html" target="_blank">Services</a></li>
+        <li><a href="contact.html" target="_blank">Contact Us</a></li>
+      </ul>
+      <form class="search-form" action="#">
+        <input type="text" placeholder="Search..." name="search">
+        <button type="submit">Search</button>
+      </form>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container" id="property-container">
+    <!-- Dynamic property cards will be inserted here -->
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2024 Rental Property Management. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- JavaScript for dynamic insertion -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const propertyData = [
+    {
+      title: 'Property 1',
+      type: 'Apartment',
+      location: 'City Center',
+      price: '$2,000 per month',
+      bedrooms: '2',
+      area: 'Navrangpura',
+      imageUrl: 'https://via.placeholder.com/400x300',
+    },
+    {
+      title: 'Property 2',
+      type: 'Villa',
+      location: 'Suburbs',
+      price: '$3,500 per month',
+      bedrooms: '2',
+      area: 'Navrangpura',
+      imageUrl: 'https://via.placeholder.com/400x300',
+    },
+    {
+      title: 'Property 3',
+      type: 'Condo',
+      location: 'Waterfront',
+      price: '$5,000 per month',
+      bedrooms: '3',
+      area: 'Navrangpura',
+      imageUrl: 'https://via.placeholder.com/400x300',
+    }
+  ];
+
+  const container = document.getElementById('property-container');
+
+  propertyData.forEach(property => {
+    const card = `
+      <div class="property-card">
+        <div class="property-image">
+          <img src="${property.imageUrl}" alt="${property.title} Image">
+        </div>
+        <div class="property-info">
+          <h3>${property.title}</h3>
+          <p>Type: ${property.type}</p>
+          <p>Location: ${property.location}</p>
+          <p>Price: ${property.price}</p>
+          <p>Bedrooms: ${property.bedrooms}</p>
+          <p>Area: ${property.area}</p>
+          <a href="#">View Details</a>
+        </div>
+      </div>
+    `;
+    container.insertAdjacentHTML('beforeend', card);
+  });
+});
+</script>
+
+</body>
+</html>

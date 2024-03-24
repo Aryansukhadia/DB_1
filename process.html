@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>List Your Property</title>
+<style>
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.input-field {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.button {
+  padding: 8px 15px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.terms-and-conditions {
+  margin-top: 20px;
+}
+
+.happiness-index {
+  margin-top: 20px;
+}
+
+/* Happiness Index Styles */
+.happiness-rating {
+  display: flex;
+  align-items: center;
+}
+
+.happiness-rating label {
+  margin-right: 10px;
+}
+
+.happiness-rating input[type="range"] {
+  width: 100%;
+  margin-right: 10px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>List Your Property</h2>
+
+  <!-- Upload Property Images -->
+  <div class="form-group">
+    <label class="label">Upload Property Images:</label>
+    <input type="file" class="input-field" id="imageUpload" multiple>
+  </div>
+
+  <!-- Upload Property Documents -->
+  <div class="form-group">
+    <label class="label">Upload Property Documents:</label>
+    <input type="file" class="input-field" id="documentUpload" multiple>
+  </div>
+
+  <!-- Terms and Conditions -->
+  <div class="form-group terms-and-conditions">
+    <label class="label">Terms and Conditions:</label>
+    <p>Here are the terms and conditions for listing your property. Please review and agree:</p>
+    <input type="checkbox" id="termsCheckbox">
+    <label for="termsCheckbox">I agree to the terms and conditions</label>
+  </div>
+
+  <!-- Happiness Index -->
+  <div class="form-group happiness-index">
+    <label class="label">Happiness Index:</label>
+    <div class="happiness-rating">
+      <label for="happinessRange">Rate your happiness (1-10):</label>
+      <input type="range" id="happinessRange" min="1" max="10" value="5">
+      <span id="happinessValue">5</span>
+    </div>
+  </div>
+
+  <!-- Submit Button -->
+  <button class="button" id="submitButton">Submit</button>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const happinessRange = document.getElementById('happinessRange');
+  const happinessValue = document.getElementById('happinessValue');
+  const termsCheckbox = document.getElementById('termsCheckbox');
+  const submitButton = document.getElementById('submitButton');
+
+  happinessRange.addEventListener('input', function() {
+    happinessValue.textContent = this.value;
+  });
+
+  submitButton.addEventListener('click', function() {
+    const imageUpload = document.getElementById('imageUpload');
+    const documentUpload = document.getElementById('documentUpload');
+
+    // Validate if at least one image and one document are uploaded
+    if (imageUpload.files.length === 0 || documentUpload.files.length === 0) {
+      alert('Please upload at least one image and one document.');
+      return;
+    }
+
+    // Validate terms and conditions acceptance
+    if (!termsCheckbox.checked) {
+      alert('Please agree to the terms and conditions.');
+      return;
+    }
+
+    // Fetch values and perform backend operations
+    const happinessRating = happinessRange.value;
+    const termsAccepted = termsCheckbox.checked;
+
+    // Perform backend operations here (e.g., AJAX request, form submission)
+    // You can access uploaded files using imageUpload.files and documentUpload.files
+    // Handle the response or error accordingly
+    alert('Form submitted successfully!');
+  });
+});
+</script>
+
+</body>
+</html>

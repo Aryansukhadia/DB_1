@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Owner Dashboard</title>
+<style>
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+table th {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Button Styles */
+.button {
+  display: inline-block;
+  padding: 8px 15px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #555;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 20% auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Owner Dashboard</h2>
+
+  <h3>Pending Appointments</h3>
+  <table id="pending-appointments-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Client Name</th>
+        <th>Agent Allocated</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Example pending appointment rows (dynamically loaded from backend) -->
+    </tbody>
+  </table>
+
+  <h3>Commission Overview</h3>
+  <table id="commission-table">
+    <thead>
+      <tr>
+        <th>Agent</th>
+        <th>Total Commission</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Example commission rows (dynamically loaded from backend) -->
+    </tbody>
+  </table>
+
+  <!-- Example modal for more details (can be dynamically generated) -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h3>Appointment Details</h3>
+      <p>Date: 2024-04-10</p>
+      <p>Time: 10:00 AM</p>
+      <p>Client Name: John Doe</p>
+      <p>Agent Allocated: Agent ABC</p>
+      <!-- Additional appointment details can be added here -->
+    </div>
+  </div>
+
+  <!-- Button to open modal (example; can be customized) -->
+  <a href="#" class="button" id="openModalBtn">View Appointment Details</a>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Mock data for pending appointments and commission overview
+  const pendingAppointmentsData = [
+    { date: '2024-04-10', time: '10:00 AM', clientName: 'John Doe', agentAllocated: 'Agent ABC' },
+    { date: '2024-04-15', time: '2:00 PM', clientName: 'Jane Smith', agentAllocated: 'Agent XYZ' }
+  ];
+
+  const commissionData = [
+    { agent: 'Agent ABC', totalCommission: '$1500' },
+    { agent: 'Agent XYZ', totalCommission: '$2000' }
+  ];
+
+  // Function to populate the pending appointments table
+  function populatePendingAppointmentsTable() {
+    const pendingAppointmentsTable = document.querySelector('#pending-appointments-table tbody');
+    pendingAppointmentsData.forEach(appointment => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${appointment.date}</td>
+        <td>${appointment.time}</td>
+        <td>${appointment.clientName}</td>
+        <td>${appointment.agentAllocated}</td>
+      `;
+      pendingAppointmentsTable.appendChild(row);
+    });
+  }
+
+  // Function to populate the commission overview table
+  function populateCommissionTable() {
+    const commissionTable = document.querySelector('#commission-table tbody');
+    commissionData.forEach(agent => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${agent.agent}</td>
+        <td>${agent.totalCommission}</td>
+      `;
+      commissionTable.appendChild(row);
+    });
+  }
+
+  // Call the populate functions to load data when the page loads
+  populatePendingAppointmentsTable();
+  populateCommissionTable();
+});
+
+// Modal functionality
+const modal = document.getElementById('myModal');
+const openModalBtn = document.getElementById('openModalBtn');
+const closeBtn = document.getElementsByClassName('close-button')[0];
+
+openModalBtn.addEventListener('click', function() {
+  modal.style.display = 'block';
+});
+
+closeBtn.addEventListener('click', function() {
+  modal.style.display = 'none';
+});
+
+window.addEventListener('click', function(event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+});
+</script>
+
+</body>
+</html>

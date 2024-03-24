@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transactions - Rental Property Management</title>
+<style>
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Transaction Card Styles */
+.transaction-card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.transaction-card .transaction-info {
+  flex: 1;
+}
+
+.transaction-card .transaction-info h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.transaction-card .transaction-info p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.transaction-card .transaction-actions {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.transaction-card .transaction-actions button {
+  margin-bottom: 10px;
+  padding: 8px 15px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Footer Styles */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>Transactions</h1>
+  </div>
+</header>
+
+<main>
+  <div class="container" id="transaction-container">
+    <!-- Dynamic transaction cards will be inserted here -->
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2024 Rental Property Management. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- JavaScript for dynamic insertion -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const transactionData = [
+    {
+      id: 'TRN001',
+      customer: 'John Doe',
+      amount: '$2,000',
+      status: 'Completed',
+    },
+    {
+      id: 'TRN002',
+      customer: 'Jane Smith',
+      amount: '$3,500',
+      status: 'Completed',
+    },
+    {
+      id: 'TRN003',
+      customer: 'Michael Johnson',
+      amount: '$5,000',
+      status: 'Pending',
+    }
+  ];
+
+  const container = document.getElementById('transaction-container');
+
+  transactionData.forEach(transaction => {
+    const card = `
+      <div class="transaction-card">
+        <div class="transaction-info">
+          <h3>Transaction ID: ${transaction.id}</h3>
+          <p>Customer: ${transaction.customer}</p>
+          <p>Amount: ${transaction.amount}</p>
+          <p>Status: ${transaction.status}</p>
+        </div>
+        <div class="transaction-actions">
+          ${
+            transaction.status === 'Completed'
+              ? `<button onclick="printInvoice('${transaction.id}')">Print Invoice</button>`
+              : ''
+          }
+        </div>
+      </div>
+    `;
+    container.insertAdjacentHTML('beforeend', card);
+  });
+});
+
+function printInvoice(transactionId) {
+  // Logic to print the invoice for the given transaction ID
+  alert(`Printing invoice for transaction ID: ${transactionId}`);
+}
+</script>
+
+</body>
+</html>

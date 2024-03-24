@@ -1,0 +1,282 @@
+\<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Dashboard</title>
+<style>
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+table th {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Button Styles */
+.button {
+  display: inline-block;
+  padding: 8px 15px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #555;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 20% auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Agent Dashboard</h2>
+
+  <h3>Upcoming Appointments</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Client Name</th>
+        <th>Property Address</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Example appointment rows (dynamically loaded from backend) -->
+      <tr>
+        <td>2024-04-10</td>
+        <td>10:00 AM</td>
+        <td>John Doe</td>
+        <td>123 Main St</td>
+        <td>Pending</td>
+      </tr>
+      <tr>
+        <td>2024-04-15</td>
+        <td>2:00 PM</td>
+        <td>Jane Smith</td>
+        <td>456 Elm St</td>
+        <td>Confirmed</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Properties Under You</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Property ID</th>
+        <th>Property Address</th>
+        <th>Commission</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Example property rows (dynamically loaded from backend) -->
+      <tr>
+        <td>1</td>
+        <td>123 Main St</td>
+        <td>$500</td>
+        <td>Rented</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>456 Elm St</td>
+        <td>$700</td>
+        <td>Pending</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Money Transactions</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Transaction ID</th>
+        <th>Property Address</th>
+        <th>Amount</th>
+        <th>Type</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Example transaction rows (dynamically loaded from backend) -->
+      <tr>
+        <td>TRN001</td>
+        <td>123 Main St</td>
+        <td>$2000</td>
+        <td>Rent</td>
+        <td>Received</td>
+      </tr>
+      <tr>
+        <td>TRN002</td>
+        <td>456 Elm St</td>
+        <td>$1500</td>
+        <td>Rent</td>
+        <td>Pending</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Example modal for more details (can be dynamically generated) -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h3>Property Details</h3>
+      <p>Property ID: 1</p>
+      <p>Property Address: 123 Main St</p>
+      <p>Status: Rented</p>
+      <p>Commission: $500</p>
+      <p>Tenant Name: John Doe</p>
+      <p>Lease End Date: 2024-12-31</p>
+    </div>
+  </div>
+
+  <!-- Button to open modal (example; can be customized) -->
+  <a href="#" class="button" id="openModalBtn">View Property Details</a>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mock data for appointments, properties, and transactions
+      const appointmentsData = [
+        { date: '2024-04-10', time: '10:00 AM', clientName: 'John Doe', propertyAddress: '123 Main St', status: 'Pending' },
+        { date: '2024-04-15', time: '2:00 PM', clientName: 'Jane Smith', propertyAddress: '456 Elm St', status: 'Confirmed' }
+      ];
+    
+      const propertiesData = [
+        { id: 1, propertyAddress: '123 Main St', commission: '$500', status: 'Rented' },
+        { id: 2, propertyAddress: '456 Elm St', commission: '$700', status: 'Pending' }
+      ];
+    
+      const transactionsData = [
+        { id: 'TRN001', propertyAddress: '123 Main St', amount: '$2000', type: 'Rent', status: 'Received' },
+        { id: 'TRN002', propertyAddress: '456 Elm St', amount: '$1500', type: 'Rent', status: 'Pending' }
+      ];
+    
+      // Function to populate the tables with data
+      function populateTables() {
+        populateAppointmentsTable();
+        populatePropertiesTable();
+        populateTransactionsTable();
+      }
+    
+      // Function to populate the Appointments table
+      function populateAppointmentsTable() {
+        const appointmentsTable = document.querySelector('#appointments-table tbody');
+        appointmentsData.forEach(appointment => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${appointment.date}</td>
+            <td>${appointment.time}</td>
+            <td>${appointment.clientName}</td>
+            <td>${appointment.propertyAddress}</td>
+            <td>${appointment.status}</td>
+          `;
+          appointmentsTable.appendChild(row);
+        });
+      }
+    
+      // Function to populate the Properties table
+      function populatePropertiesTable() {
+        const propertiesTable = document.querySelector('#properties-table tbody');
+        propertiesData.forEach(property => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${property.id}</td>
+            <td>${property.propertyAddress}</td>
+            <td>${property.commission}</td>
+            <td>${property.status}</td>
+          `;
+          propertiesTable.appendChild(row);
+        });
+      }
+    
+      // Function to populate the Transactions table
+      function populateTransactionsTable() {
+        const transactionsTable = document.querySelector('#transactions-table tbody');
+        transactionsData.forEach(transaction => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${transaction.id}</td>
+            <td>${transaction.propertyAddress}</td>
+            <td>${transaction.amount}</td>
+            <td>${transaction.type}</td>
+            <td>${transaction.status}</td>
+          `;
+          transactionsTable.appendChild(row);
+        });
+      }
+    
+      // Call the populateTables function to load data when the page loads
+      populateTables();
+    });
+    </script>
+    
+
+</body>
+</html>
